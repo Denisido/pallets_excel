@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Имя файла в папке files
-const EXCEL_FILE_NAME = "111.xlsx";
+const EXCEL_FILE_NAME = "111_converted.xlsx";
 
 // Путь к файлу Excel
 const excelFilePath = path.join(__dirname, "files", EXCEL_FILE_NAME);
@@ -64,8 +64,8 @@ async function main() {
 
         const data = [];
 
-        // Предполагаем, что первая строка — заголовки, данные с 2-й строки
-        const startRow = 2;
+        // Предполагаем, что первые строки — заголовки, данные с 16-ой строки
+        const startRow = 16;
 
         for (let rowNumber = startRow; rowNumber <= worksheet.rowCount; rowNumber++) {
             const row = worksheet.getRow(rowNumber);
@@ -96,6 +96,12 @@ async function main() {
             const val325 = divideIfInteger(sum, 325);
             const val700 = divideIfInteger(sum, 700);
 
+            // 🔥 Если ни на 300, ни на 325, ни на 700 сумма
+            // не делится нацело — строку целиком пропускаем
+            if (val300 === null && val325 === null && val700 === null) {
+                continue;
+            }
+
             data.push({
                 Дата: valI ?? null,
                 ИНН: valQ ?? null,
@@ -104,7 +110,7 @@ async function main() {
                 Кол_300: val300,
                 Кол_325: val325,
                 Кол_700: val700,
-                _row: i + 1
+                _row: rowNumber
             });
         }
 
