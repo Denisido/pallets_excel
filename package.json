@@ -1,0 +1,17 @@
+{
+  "name": "pallets_excel",
+  "version": "1.0.0",
+  "description": "Проект для Кожина Сергея Валерьевича",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Denisido",
+  "license": "ISC",
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
